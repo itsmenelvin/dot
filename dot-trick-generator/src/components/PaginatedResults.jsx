@@ -1,16 +1,12 @@
 // src/components/PaginatedResults.jsx
 import React, { useState, useMemo } from 'react';
 import ReactPaginate from 'react-paginate';
-import { FixedSizeList as List } from 'react-window';
-import './PaginatedResults.css';
 
 const PaginatedResults = ({ prefix, provider, total }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(16384); // Default to 16K items per page
 
-  const maxItemsPerPage = 16384;
   const itemsPerPageOptions = [1000, 5000, 10000, 16384];
-
   const pageCount = Math.ceil(total / itemsPerPage);
 
   const handlePageClick = ({ selected }) => {
@@ -50,20 +46,35 @@ const PaginatedResults = ({ prefix, provider, total }) => {
 
   // Row component for React Window
   const Row = ({ index, style }) => (
-    <div style={style} className="virtualized-item">
+    <div style={style} className="px-6 py-4 whitespace-nowrap">
       {currentEmails[index]}
     </div>
   );
 
   return (
-    <div className="paginated-results">
-      <div className="results-header">
-        <button onClick={handleCopy} className="copy-button" disabled={currentEmails.length === 0}>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+      <div className="flex justify-between items-center mb-4">
+        <button
+          onClick={handleCopy}
+          disabled={currentEmails.length === 0}
+          className={`px-4 py-2 rounded-md text-white text-sm font-medium ${
+            currentEmails.length > 0
+              ? 'bg-green-600 hover:bg-green-700 focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
+              : 'bg-green-300 cursor-not-allowed'
+          } transition-colors duration-300`}
+        >
           Copy to Clipboard
         </button>
-        <div className="items-per-page">
-          <label htmlFor="items-per-page">Items per page:</label>
-          <select id="items-per-page" value={itemsPerPage} onChange={handleItemsPerPageChange}>
+        <div className="flex items-center">
+          <label htmlFor="items-per-page" className="mr-2 text-sm text-gray-700 dark:text-gray-300">
+            Items per page:
+          </label>
+          <select
+            id="items-per-page"
+            value={itemsPerPage}
+            onChange={handleItemsPerPageChange}
+            className="mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:text-gray-200"
+          >
             {itemsPerPageOptions.map((option) => (
               <option key={option} value={option}>
                 {option.toLocaleString()}
@@ -72,29 +83,42 @@ const PaginatedResults = ({ prefix, provider, total }) => {
           </select>
         </div>
       </div>
-      <div className="page-info">
-        Page {currentPage + 1} of {pageCount}
+      <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        Page {currentPage + 1} of {pageCount.toLocaleString()}
       </div>
-      <List
-        height={600} // Adjust based on desired height
-        itemCount={currentEmails.length}
-        itemSize={20} // Adjust based on item height
-        width={'100%'}
-      >
-        {Row}
-      </List>
-      <ReactPaginate
-        previousLabel={"← Previous"}
-        nextLabel={"Next →"}
-        pageCount={pageCount}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        previousLinkClassName={"pagination__link"}
-        nextLinkClassName={"pagination__link"}
-        disabledClassName={"pagination__link--disabled"}
-        activeClassName={"pagination__link--active"}
-        forcePage={currentPage}
-      />
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead className="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Email Variations
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            {currentEmails.map((email, index) => (
+              <tr key={index}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                  {email}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-4">
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"flex justify-center space-x-2"}
+          previousLinkClassName={"px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-md text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}
+          nextLinkClassName={"px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-md text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}
+          disabledClassName={"opacity-50 cursor-not-allowed"}
+          activeClassName={"bg-indigo-600 text-white"}
+        />
+      </div>
     </div>
   );
 };

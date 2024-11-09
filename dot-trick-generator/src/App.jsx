@@ -5,7 +5,6 @@ import Introduction from './components/Introduction';
 import EmailInputSection from './components/EmailInputSection';
 import PaginatedResults from './components/PaginatedResults';
 import ErrorBoundary from './components/ErrorBoundary';
-import './App.css';
 
 const App = () => {
   const [generationData, setGenerationData] = useState(null);
@@ -16,17 +15,19 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <div className="app">
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
         <Header />
-        <Introduction />
-        <EmailInputSection onGenerate={handleGenerate} />
-        {generationData && (
-          <PaginatedResults
-            prefix={generationData.prefix}
-            provider={generationData.provider}
-            total={generationData.total}
-          />
-        )}
+        <main className="container mx-auto px-4 py-8">
+          <Introduction />
+          <EmailInputSection onGenerate={handleGenerate} />
+          {generationData && (
+            <PaginatedResults
+              prefix={generationData.prefix}
+              provider={generationData.provider}
+              total={generationData.total}
+            />
+          )}
+        </main>
       </div>
     </ErrorBoundary>
   );
