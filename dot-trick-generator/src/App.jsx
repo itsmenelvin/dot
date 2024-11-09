@@ -4,25 +4,29 @@ import Header from './components/Header';
 import Introduction from './components/Introduction';
 import EmailInputSection from './components/EmailInputSection';
 import PaginatedResults from './components/PaginatedResults';
-import ExportButton from './components/ExportButton';
-import CopyButton from './components/CopyButton'; 
 import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 const App = () => {
-  const [generatedEmails, setGeneratedEmails] = useState([]);
+  const [generationData, setGenerationData] = useState(null);
+
+  const handleGenerate = ({ prefix, provider, total }) => {
+    setGenerationData({ prefix, provider, total });
+  };
 
   return (
     <ErrorBoundary>
       <div className="app">
         <Header />
         <Introduction />
-        <EmailInputSection onGenerate={setGeneratedEmails} />
-        <PaginatedResults emails={generatedEmails} />
-        <div className="action-buttons">
-          <ExportButton emails={generatedEmails} />
-          <CopyButton emails={generatedEmails} />
-        </div>
+        <EmailInputSection onGenerate={handleGenerate} />
+        {generationData && (
+          <PaginatedResults
+            prefix={generationData.prefix}
+            provider={generationData.provider}
+            total={generationData.total}
+          />
+        )}
       </div>
     </ErrorBoundary>
   );

@@ -10,7 +10,7 @@ const Header = () => {
     <header className="header">
       <h1>Dot Trick Generator</h1>
       <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle Dark Mode">
-        {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+        {theme === 'light' ? '🌙' : '☀️'}
       </button>
     </header>
   );
