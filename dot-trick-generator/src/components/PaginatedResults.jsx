@@ -36,7 +36,7 @@ const PaginatedResults = ({ prefix, provider, total }) => {
     const text = currentEmails.join('\n');
     navigator.clipboard.writeText(text)
       .then(() => {
-        alert('Emails copied to clipboard!');
+        console.log('Emails copied to clipboard!');
       })
       .catch((err) => {
         console.error('Failed to copy emails:', err);
