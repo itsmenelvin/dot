@@ -1,0 +1,52 @@
+/* src/components/PaginatedResults.css */
+
+.paginated-results {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.paginated-results ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.paginated-results li {
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.paginated-results li:nth-child(odd) {
+  background-color: var(--input-bg-color);
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+  justify-content: center;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.pagination__link {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--primary-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination__link--active {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+}
+
+.pagination__link--disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}

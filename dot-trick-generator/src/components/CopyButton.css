@@ -1,0 +1,16 @@
+/* src/components/CopyButton.css */
+
+.copy-button {
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  transition: background-color 0.3s;
+}
+
+.copy-button:hover:not(:disabled) {
+  background-color: var(--button-hover-secondary);
+}
+
+.copy-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

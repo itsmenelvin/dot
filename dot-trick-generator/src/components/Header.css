@@ -1,0 +1,31 @@
+/* src/components/Header.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.theme-toggle {
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+  color: var(--primary-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.theme-toggle:hover {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
