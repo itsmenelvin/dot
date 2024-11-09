@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import { ThemeProvider } from './components/context/ThemeContext';
-import StreamSaver from 'streamsaver';
 
 // Register the service worker
 if ('serviceWorker' in navigator) {

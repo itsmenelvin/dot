@@ -6,7 +6,7 @@ const PaginatedResults = ({ prefix, provider, total }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(16384); // Default to 16K items per page
 
-  const itemsPerPageOptions = [1000, 5000, 10000, 16384];
+  const itemsPerPageOptions = [1024, 2048, 4096, 8192, 16384];
   const pageCount = Math.ceil(total / itemsPerPage);
 
   const handlePageClick = ({ selected }) => {

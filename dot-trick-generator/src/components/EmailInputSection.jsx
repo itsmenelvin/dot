@@ -43,8 +43,8 @@ const EmailInputSection = ({ onGenerate }) => {
       return;
     }
 
-    if (emailCount > 30000000) {
-      setError('The number of variations exceeds the limit of 30,000,000. Please reduce the length of the prefix.');
+    if (emailCount > 536870912) {
+      setError('The number of variations exceeds the limit of 536870912. Please reduce the length of the prefix.');
       return;
     }
 
