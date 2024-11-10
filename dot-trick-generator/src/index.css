@@ -1,8 +1,17 @@
-/* src/index.css */
+/* Tailwind Base, Components, and Utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Component Layer */
+@layer components {
+  /* Defining .text-primary-color as a custom component for purging and reusability */
+  .text-primary-color {
+    color: var(--primary-color);
+  }
+}
+
+/* Custom CSS Variables */
 :root {
   --primary-color: #0070f3;
   --secondary-color: #28a745;
@@ -39,40 +48,23 @@ body.dark {
 }
 
 a {
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--button-hover-primary);
+  @apply text-primary-color no-underline hover:text-button-hover-primary;
 }
 
 button {
-  border-radius: 5px;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  @apply rounded-md border-none px-4 py-2 text-base cursor-pointer transition-colors duration-300;
 }
 
 button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-button:hover:not(:disabled) {
-  /* Styles will be defined per button */
+  @apply opacity-60 cursor-not-allowed;
 }
 
 h1 {
-  font-size: 2rem;
-  line-height: 1.2;
+  @apply text-2xl leading-tight;
 }
 
 p {
-  font-size: 1rem;
-  line-height: 1.6;
+  @apply text-base leading-relaxed;
 }
 
 @media (prefers-color-scheme: light) {
@@ -81,6 +73,6 @@ p {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    @apply text-button-hover-primary;
   }
 }

@@ -1,6 +1,8 @@
-// src/components/PaginatedResults.jsx
+// src/components/PaginatedResults/PaginatedResults.jsx
 import React, { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
+import { generateEmail } from '../../utils/emailUtils';
 
 const PaginatedResults = ({ prefix, provider, total }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -36,20 +38,13 @@ const PaginatedResults = ({ prefix, provider, total }) => {
     const text = currentEmails.join('\n');
     navigator.clipboard.writeText(text)
       .then(() => {
-        console.log('Emails copied to clipboard!');
+        alert('Emails copied to clipboard!');
       })
       .catch((err) => {
         console.error('Failed to copy emails:', err);
         alert('Failed to copy emails.');
       });
   };
-
-  // Row component for React Window
-  const Row = ({ index, style }) => (
-    <div style={style} className="px-6 py-4 whitespace-nowrap">
-      {currentEmails[index]}
-    </div>
-  );
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
@@ -62,6 +57,8 @@ const PaginatedResults = ({ prefix, provider, total }) => {
               ? 'bg-green-600 hover:bg-green-700 focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
               : 'bg-green-300 cursor-not-allowed'
           } transition-colors duration-300`}
+          aria-disabled={currentEmails.length === 0}
+          aria-label="Copy emails to clipboard"
         >
           Copy to Clipboard
         </button>
@@ -117,26 +114,19 @@ const PaginatedResults = ({ prefix, provider, total }) => {
           nextLinkClassName={"px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-md text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}
           disabledClassName={"opacity-50 cursor-not-allowed"}
           activeClassName={"bg-indigo-600 text-white"}
+          ariaLabelBuilder={(page) => `Go to page ${page}`}
+          previousAriaLabel="Previous page"
+          nextAriaLabel="Next page"
         />
       </div>
     </div>
   );
 };
 
-// Helper function to generate email based on variation index
-const generateEmail = (prefix, variationIndex, provider) => {
-  let email = prefix[0];
-  const length = prefix.length;
-
-  for (let i = 1; i < length; i++) {
-    // Bitwise operation to determine if a dot should be inserted
-    if ((variationIndex & (1 << (i - 1))) !== 0) {
-      email += '.';
-    }
-    email += prefix[i];
-  }
-
-  return `${email}@${provider}`;
+PaginatedResults.propTypes = {
+  prefix: PropTypes.string.isRequired,
+  provider: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 export default PaginatedResults;

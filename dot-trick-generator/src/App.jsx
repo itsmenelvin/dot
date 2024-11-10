@@ -1,10 +1,9 @@
-// src/App.jsx
 import React, { useState } from 'react';
-import Header from './components/Header';
-import Introduction from './components/Introduction';
-import EmailInputSection from './components/EmailInputSection';
-import PaginatedResults from './components/PaginatedResults';
-import ErrorBoundary from './components/ErrorBoundary';
+import Header from './components/common/Header/Header';
+import Introduction from './components/common/Introduction/Introduction';
+import EmailInputSection from './components/EmailInputSection/EmailInputSection';
+import PaginatedResults from './components/PaginatedResults/PaginatedResults';
+import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
 
 const App = () => {
   const [generationData, setGenerationData] = useState(null);
