@@ -18,7 +18,7 @@ const App = () => {
     <ErrorBoundary>
       <div className="min-h-screen bg-background dark:bg-gray-900 transition-colors duration-300">
         <Header />
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto max-w-screen-md px-4 py-8">
           <Hero />
           <EmailInputSection onGenerate={handleGenerate} />
           <Features />
