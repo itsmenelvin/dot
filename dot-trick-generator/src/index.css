@@ -1,3 +1,6 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 /* Tailwind Base, Components, and Utilities */
 @tailwind base;
 @tailwind components;
@@ -13,44 +16,47 @@
 
 /* Custom CSS Variables */
 :root {
-  --primary-color: #0070f3;
-  --secondary-color: #28a745;
-  --danger-color: #ff4d4f;
-  --background-color: #ffffff;
-  --text-color: #333333;
-  --input-bg-color: #f9f9f9;
-  --border-color: #e0e0e0;
-  --error-color: #ff4d4f;
-  --button-hover-primary: #005bb5;
-  --button-hover-secondary: #218838;
-  --button-hover-danger: #d9363e;
+  --font-family: 'Inter', sans-serif;
+  
+  /* Modern Color Palette */
+  --primary-color: #4F46E5; /* Indigo-600 */
+  --secondary-color: #10B981; /* Green-500 */
+  --danger-color: #EF4444; /* Red-500 */
+  --background-color: #F3F4F6; /* Gray-100 */
+  --text-color: #1F2937; /* Gray-800 */
+  --input-bg-color: #FFFFFF;
+  --border-color: #D1D5DB; /* Gray-300 */
+  --button-hover-primary: #4338CA; /* Indigo-700 */
+  --button-hover-secondary: #059669; /* Green-600 */
+  --button-hover-danger: #DC2626; /* Red-600 */
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--font-family);
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* Dark Mode Overrides */
 body.dark {
-  --background-color: #121212;
-  --text-color: #e0e0e0;
-  --input-bg-color: #1e1e1e;
-  --border-color: #333333;
-  --error-color: #ff6b6b;
+  --background-color: #1F2937; /* Gray-800 */
+  --text-color: #F9FAFB; /* Gray-50 */
+  --input-bg-color: #374151; /* Gray-700 */
+  --border-color: #4B5563; /* Gray-600 */
+  --danger-color: #F87171; /* Red-400 */
 }
 
 * {
   box-sizing: border-box;
 }
 
+/* Enhanced Link Styles */
 a {
   @apply text-primary-color no-underline hover:text-button-hover-primary;
 }
 
+/* Button Styles */
 button {
   @apply rounded-md border-none px-4 py-2 text-base cursor-pointer transition-colors duration-300;
 }
@@ -59,8 +65,8 @@ button:disabled {
   @apply opacity-60 cursor-not-allowed;
 }
 
-h1 {
-  @apply text-2xl leading-tight;
+h1, h2, h3, h4, h5, h6 {
+  @apply font-semibold;
 }
 
 p {
@@ -74,5 +80,32 @@ p {
   }
   a:hover {
     @apply text-button-hover-primary;
+  }
+}
+
+/* Additional Tailwind Customizations */
+@layer components {
+  .text-primary-color {
+    color: var(--primary-color);
+  }
+  
+  .bg-primary-color {
+    background-color: var(--primary-color);
+  }
+  
+  .bg-secondary-color {
+    background-color: var(--secondary-color);
+  }
+  
+  .bg-danger-color {
+    background-color: var(--danger-color);
+  }
+  
+  .text-secondary-color {
+    color: var(--secondary-color);
+  }
+  
+  .text-danger-color {
+    color: var(--danger-color);
   }
 }

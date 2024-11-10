@@ -7,6 +7,9 @@ export default {
   darkMode: 'class', // Enable dark mode via class
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
       colors: {
         primary: 'var(--primary-color)',
         secondary: 'var(--secondary-color)',
@@ -18,6 +21,12 @@ export default {
         border: 'var(--border-color)',
         text: 'var(--text-color)',
         background: 'var(--background-color)',
+      },
+      boxShadow: {
+        'card': '0 4px 6px rgba(0, 0, 0, 0.1)',
+      },
+      borderRadius: {
+        'lg': '0.5rem',
       },
     },
   },

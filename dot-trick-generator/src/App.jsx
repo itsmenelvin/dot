@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Header from './components/common/Header/Header';
-import Introduction from './components/common/Introduction/Introduction';
+import Hero from './components/common/Hero/Hero';
 import EmailInputSection from './components/EmailInputSection/EmailInputSection';
+import Features from './components/common/Features/Features';
 import PaginatedResults from './components/PaginatedResults/PaginatedResults';
+import Footer from './components/common/Footer/Footer';
 import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
 
 const App = () => {
@@ -14,11 +16,12 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+      <div className="min-h-screen bg-background dark:bg-gray-900 transition-colors duration-300">
         <Header />
         <main className="container mx-auto px-4 py-8">
-          <Introduction />
+          <Hero />
           <EmailInputSection onGenerate={handleGenerate} />
+          <Features />
           {generationData && (
             <PaginatedResults
               prefix={generationData.prefix}
@@ -27,6 +30,7 @@ const App = () => {
             />
           )}
         </main>
+        <Footer />
       </div>
     </ErrorBoundary>
   );

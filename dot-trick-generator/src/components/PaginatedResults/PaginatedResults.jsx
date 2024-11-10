@@ -3,10 +3,11 @@ import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import { generateEmail } from '../../utils/emailUtils';
+import CopyButton from '../common/CopyButton/CopyButton';
 
 const PaginatedResults = ({ prefix, provider, total }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(16384); // Default to 16K items per page
+  const [itemsPerPage, setItemsPerPage] = useState(1024); // Default to 1K items per page
 
   const itemsPerPageOptions = [1024, 2048, 4096, 8192, 16384];
   const pageCount = Math.ceil(total / itemsPerPage);
@@ -47,37 +48,28 @@ const PaginatedResults = ({ prefix, provider, total }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
-      <div className="flex justify-between items-center mb-4">
-        <button
-          onClick={handleCopy}
-          disabled={currentEmails.length === 0}
-          className={`px-4 py-2 rounded-md text-white text-sm font-medium ${
-            currentEmails.length > 0
-              ? 'bg-green-600 hover:bg-green-700 focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
-              : 'bg-green-300 cursor-not-allowed'
-          } transition-colors duration-300`}
-          aria-disabled={currentEmails.length === 0}
-          aria-label="Copy emails to clipboard"
-        >
-          Copy to Clipboard
-        </button>
-        <div className="flex items-center">
-          <label htmlFor="items-per-page" className="mr-2 text-sm text-gray-700 dark:text-gray-300">
-            Items per page:
-          </label>
-          <select
-            id="items-per-page"
-            value={itemsPerPage}
-            onChange={handleItemsPerPageChange}
-            className="mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:text-gray-200"
-          >
-            {itemsPerPageOptions.map((option) => (
-              <option key={option} value={option}>
-                {option.toLocaleString()}
-              </option>
-            ))}
-          </select>
+    <section className="bg-white dark:bg-gray-800 rounded-lg shadow-card p-6 mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-4">
+        <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">Generated Emails</h3>
+        <div className="flex items-center space-x-4 mt-4 md:mt-0">
+          <CopyButton onCopy={handleCopy} disabled={currentEmails.length === 0} />
+          <div className="flex items-center">
+            <label htmlFor="items-per-page" className="mr-2 text-sm text-gray-700 dark:text-gray-300">
+              Items per page:
+            </label>
+            <select
+              id="items-per-page"
+              value={itemsPerPage}
+              onChange={handleItemsPerPageChange}
+              className="mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-primary-color focus:border-primary-color sm:text-sm rounded-md dark:bg-gray-700 dark:text-gray-200"
+            >
+              {itemsPerPageOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option.toLocaleString()}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
       <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
@@ -113,13 +105,13 @@ const PaginatedResults = ({ prefix, provider, total }) => {
           previousLinkClassName={"px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-md text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}
           nextLinkClassName={"px-3 py-1 border border-gray-300 dark:border-gray-700 rounded-md text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}
           disabledClassName={"opacity-50 cursor-not-allowed"}
-          activeClassName={"bg-indigo-600 text-white"}
+          activeClassName={"bg-primary-color text-white"}
           ariaLabelBuilder={(page) => `Go to page ${page}`}
           previousAriaLabel="Previous page"
           nextAriaLabel="Next page"
         />
       </div>
-    </div>
+    </section>
   );
 };
 
